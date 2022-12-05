@@ -17,10 +17,10 @@
                 </div>
             </div>
             <div class="row mt-5">
-                {{-- @foreach ($courses as $item)
+                @foreach ($courses as $item)
                 <div class="col-lg-2 col-6 mb-3 ">
                     <div class="card border text-center  shadow-lg h-100">
-                        <img src="{{ asset('image/' . $item->image) }}" alt="" class="card-img-top  shadow-lg img-fluid">
+                        <img src="{{ asset('cover/' . $item->cover) }}" alt="" class="card-img-top  shadow-lg img-fluid">
                         <div class="card-body p-2 pb-0  mb-0">
                             <h3 class="h6  mb-0">{{ $item->title }}</h3>
                         </div>
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-                @endforeach --}}
+                @endforeach
             </div>
         </div>
     </div>

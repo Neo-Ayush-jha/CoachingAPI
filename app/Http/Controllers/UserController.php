@@ -177,7 +177,7 @@ class UserController extends Controller
     public function destroy(User $id)
     {
         $id->delete();
-        $user['data']=$id;
-        return response()->json([$user,'massage'=>'Data is deleted successfuly']);
+        // $user['data']=$id;
+        return response()->json(null);
     }
 }

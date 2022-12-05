@@ -29,7 +29,7 @@ Route::get('/show',[ApiController::class, 'show']);
 Route::get('/test2/{name}',[CourseController::class, 'index']);
 Route::post('/form2',[CourseController::class, 'store']);
 Route::get('/show2',[CourseController::class, 'create']);
-Route::delete('/user/delete3/{id}',[CourseController::class, 'destroy']);
+Route::delete('/delete2/{id}',[CourseController::class, 'destroy']);
 
 Route::get('/test3/{name}',[UserController::class, 'index']);
 Route::post('/form3',[UserController::class, 'store']);

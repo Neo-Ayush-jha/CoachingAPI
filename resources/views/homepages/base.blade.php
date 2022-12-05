@@ -25,8 +25,8 @@
             </li>
               
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="">Courses</a>
-                {{-- <a class="nav-link active" aria-current="page" href="{{route('courses')}}">Courses</a> --}}
+                {{-- <a class="nav-link active" aria-current="page" href="">Courses</a> --}}
+                <a class="nav-link active" aria-current="page" href="{{route('courses')}}">Courses</a>
             </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="">Online Payment</a>

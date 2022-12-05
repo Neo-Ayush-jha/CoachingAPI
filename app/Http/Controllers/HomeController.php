@@ -2,20 +2,25 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Course;
+use App\Models\course_details;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
 
     public function index(){
-        // $data['courses']=Course::all();
-        // return view("homepages/home",$data);
-        return view("homepages/home");
+        $data['courses']=Course::all();
+        $data['course_details']=course_details::all();
+        return view("homepages/home",$data);
+        // return view("homepages/home");
     }
-    // public function courses(){
-    //     $data['courses']=Course::all();
-    //     return view("homepages/courses" , $data);   
-    // }
+    public function courses(){
+        $data['courses']=Course::all();
+        $data['course_details'] = course_details::where('parent_id',0)->get();
+        // $data['course_details']=course_details::all();
+        return view("homepages/courses" , $data);   
+    }
    
 
     public function create()
