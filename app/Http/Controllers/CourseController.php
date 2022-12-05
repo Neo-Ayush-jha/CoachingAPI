@@ -119,8 +119,8 @@ class CourseController extends Controller
 /* -----------------------------------------Remove the specified resource from storage.                                     */
     public function destroy(Course $course)
     {
-        $course->delete();
         $user['data']=$course;
+        $course->delete();
         return response()->json([$user,'massage'=>'Data is deleted successfuly']);
     }
 }

@@ -176,8 +176,8 @@ class UserController extends Controller
 /* -----------------------------------------Remove the specified resource from storage.                                     */
     public function destroy(User $id)
     {
+        $user['data']=$id;
         $id->delete();
-        // $user['data']=$id;
-        return response()->json(null);
+        return response()->json([$user,'massage'=>'Data is deleted successfuly']);
     }
 }

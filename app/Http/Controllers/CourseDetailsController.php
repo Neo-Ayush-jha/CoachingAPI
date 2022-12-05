@@ -102,8 +102,8 @@ class CourseDetailsController extends Controller
     /* -----------------------------------------Remove the specified resource from storage.                                     */
         public function destroy(course_details $course_details)
         {
-            $course_details->delete();
             $user['data']=$course_details;
+            $course_details->delete();
             return response()->json([$user,'massage'=>'Data is deleted successfuly']);
         }
     }
