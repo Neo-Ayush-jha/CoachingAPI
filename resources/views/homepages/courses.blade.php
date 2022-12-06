@@ -36,6 +36,7 @@
                                                     @foreach ($course_details as $pay)
                                                         @if ($item->id == $pay->course_id )
                                                             <tr>
+
                                                                 <td>{{ $pay->id }}</td>
                                                                 <td>{{ $pay->title }}</td>
                                                                 <td>

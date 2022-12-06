@@ -15,3 +15,7 @@ Route::get('/courses' ,[HomeController::class,"courses"])->name("courses");
 // Route::post("/online-payment/make-payment",[HomeController::class,"makePayment"])->name("makePayment");
 // Route::post("/online-payment/call-back",[HomeController::class,"paymentCallback"])->name("callback");
 
+Route::get ( '/payment', function () {
+    return view ( 'homepages.cardForm' );
+} );
+Route::post ( '/payment', [HomeController::class,'call'] );

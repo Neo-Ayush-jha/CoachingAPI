@@ -9,6 +9,9 @@ use App\Models\course_details;
 class Home extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        
+    ];
     public function parent(){
         return $this->hasOne(course_details::class,'id',"parent_id");
     }
