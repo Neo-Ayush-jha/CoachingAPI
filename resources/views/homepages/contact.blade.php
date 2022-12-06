@@ -34,29 +34,31 @@
                                                         <th>Status</th>
                                                     </tr>
                                                     @foreach ($course_details as $pay)
-                                                        <tr>
-                                                            <td>{{ $pay->id }}</td>
-                                                            <td>{{ $pay->title }}</td>
-                                                            <td>
-                                                                @if ($pay->parent_id == 0)
-                                                                    main 
-                                                                @else
-                                                                    {{$pay->parent_id->title}}
-                                                                @endif
-                                                            </td>
-                                                            <td>{{ $pay->course_id }}</td>
-                                                            <td>
-                                                                <a href="" class="btn btn-success disabled">Attend</a>
-                                                            </td>
-                                                        </tr>
+                                                        @if ($item->id == $pay->course_id )
+                                                            <tr>
+                                                                <td>{{ $pay->id }}</td>
+                                                                <td>{{ $pay->title }}</td>
+                                                                <td>
+                                                                    @if ($pay->parent_id != 0)
+                                                                         {{$pay->parent_id}}
+                                                                    @else
+                                                                        main
+                                                                    @endif
+                                                                </td>
+                                                                <td>{{ $pay->course_id }}</td>
+                                                                <td>
+                                                                    <a href="" class="btn btn-success disabled">Attend</a>
+                                                                </td>
+                                                            </tr>
+                                                        @endif
                                                     @endforeach
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
                                         
-                                    <div class="col-3">
-                                        <img src="{{ asset('cover/' . $item->cover) }}" alt="" class="card-img-top shadow-lg " style="border-radius: 1.5rem;margin-top:75%">
+                                    <div class="col-3 mt-5">
+                                        <img src="{{ asset('cover/' . $item->cover) }}" alt="" class="card-img-top shadow-lg " style="border-radius: 1.5rem">
                                     </div>
                                 </div>
                             </div>

@@ -40,7 +40,7 @@
                                                                 <td>{{ $pay->title }}</td>
                                                                 <td>
                                                                     @if ($pay->parent_id != 0)
-                                                                         {{$pay->parent_id->title}}
+                                                                         {{$pay->parent_id}}
                                                                     @else
                                                                         main
                                                                     @endif

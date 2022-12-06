@@ -41,3 +41,9 @@ Route::get('/test4/{name}',[CourseDetailsController::class, 'index']);
 Route::post('/form4',[CourseDetailsController::class, 'store']);
 Route::get('/show4',[CourseDetailsController::class, 'create']);
 Route::delete('/delete4/{id}',[CourseDetailsController::class, 'destroy']);
+
+Route::post('/register',[UserController::class,'resister']); 
+Route::post('/login',[UserController::class,'login']); 
+Route::post('/profile',[UserController::class,'profile']); 
+Route::post('/refresh',[UserController::class,'refresh']); 
+Route::post('/logout',[UserController::class,'logout']); 
