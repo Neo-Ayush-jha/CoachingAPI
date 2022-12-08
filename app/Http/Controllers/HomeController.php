@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Stripe;
+use Razorpay\Api\Api;
 use Session;
 use App\Models\User;
 use App\Models\Course;
@@ -84,30 +84,30 @@ class HomeController extends Controller
     {
         //
     }
-    public function call(Request $request) {
-        \Stripe\Stripe::setApiKey('sk_test_51KqEClSIJqriEVmBA7tTyyn5DBKWl9fhWnvNnBOYqL6oBZWFfVOmsDxTeZ7UrskTRuLjUJCWR19rWZuVrNfaDbdL00Ahz8qpgP');
-        $customer = \Stripe\Customer::create(array(
-          'name' => 'Neo Ayush',
-          'description' => 'test description',
-          'email' => 'ayush@gmail.com',
-          'source' => $request->input('stripeToken'),
-           "address" => ["city" => "San Francisco", "country" => "India", "line1" => "510 Townsend St", "postal_code" => "854031", "state" => "Bihar"]
-
-      ));
-        try {
-            \Stripe\Charge::create ( array (
-                    "amount" => 300 * 100,
-                    "currency" => "usd",
-                    "customer" =>  $customer["id"],
-                    "description" => "Test payment."
-            ) );
-            Session::flash ( 'success-message', 'Payment done successfully !' );
-            return view ( 'homepages/cardForm' );
-        } catch ( \Stripe\Error\Card $e ) {
-            Session::flash ( 'fail-message', $e->get_message() );
-            return view ( 'homepages/cardForm' );
-        }
+    public function index2()
+    {        
+        return view('homepages/razorpayView');
     }
-
+    public function store2(Request $request)
+    {
+        $input = $request->all();
+  
+        $api = new Api("rzp_test_ISOwomsQzcDDQt", "53hKzsqH5MyVyXclZmscoHKP");
+  
+        $payment = $api->payment->fetch($input['razorpay_payment_id']);
+  
+        if(count($input)  && !empty($input['razorpay_payment_id'])) {
+            try {
+                $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment['amount'])); 
+  
+            } catch (Exception $e) {
+                return  $e->getMessage();
+                Session::put('error',$e->getMessage());
+                return redirect()->back();
+            }
+        }
+          
+        Session::put('success', 'Payment successful');
+        return redirect()->back();
+    }
 }
-
