@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Razorpay;
 use Razorpay\Api\Api;
 use Session;
 use App\Models\User;
+use App\Models\Payment;
 use App\Models\Course;
 use App\Models\course_details;
 use Illuminate\Http\Request;
@@ -84,30 +86,70 @@ class HomeController extends Controller
     {
         //
     }
+
+//-----------------------------------------------Payment Method
+public function onlinePayment(Request $req){
+    $contact=$req->contact;
+    if($req->has('contact')):
+        $payment['userDetail'] = User::where("contact",$contact)->with('course')->first();
+        return view("homepages/onlinePayment",$payment);
+    else:
+        return view("homepages/onlinePayment");
+    endif;
+}
+
+
     public function index2()
-    {        
-        return view('homepages/razorpayView');
+    {    
+        return view('homepages/onlinePayment');
     }
+
+    
+    private $razorpayId = "rzp_test_ISOwomsQzcDDQt";
+    private $razorpayKey = "53hKzsqH5MyVyXclZmscoHKP";
+
     public function store2(Request $request)
     {
         $input = $request->all();
-  
-        $api = new Api("rzp_test_ISOwomsQzcDDQt", "53hKzsqH5MyVyXclZmscoHKP");
-  
+        $api = new Api($this->razorpayId, $this->razorpayKey);
         $payment = $api->payment->fetch($input['razorpay_payment_id']);
-  
         if(count($input)  && !empty($input['razorpay_payment_id'])) {
             try {
-                $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment['amount'])); 
+                $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment->amount )); 
   
             } catch (Exception $e) {
                 return  $e->getMessage();
                 Session::put('error',$e->getMessage());
                 return redirect()->back();
             }
-        }
-          
+        }          
         Session::put('success', 'Payment successful');
         return redirect()->back();
     }
+
+    public function paymentCallback()
+    {
+        $transaction = Razorpay::with('receive');
+        
+        $response = $transaction->response();         
+        if($transaction->isSuccessful()){
+            $order_id = $response['ORDERID'];
+            $paymentRecord = Payment::find($order_id);
+            $studentRecord = User::find($paymentRecord->student_id);
+            AdminController::makeCashPayment($studentRecord->id,$paymentRecord->id);
+            return redirect()->back();
+
+        }else if($transaction->isFailed()){
+          echo "failed";
+        }else if($transaction->isOpen()){
+          echo "processing";
+        }
+        $transaction->getResponseMessage(); //Get Response Message If Available
+//get important parameters via public methods//get important parameters via public methods
+        $transaction->getOrderId(); // Get order id
+        $transaction->getTransactionId(); // Get transaction id
+    }    
+
+
+    
 }

@@ -29,8 +29,8 @@
                 <a class="nav-link active" aria-current="page" href="{{route('courses')}}">Courses</a>
             </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="">Online Payment</a>
-                {{-- <a class="nav-link active" aria-current="page" href="{{route('online-payment')}}">Online Payment</a> --}}
+                {{-- <a class="nav-link active" aria-current="page" href="">Online Payment</a> --}}
+                <a class="nav-link active" aria-current="page" href="{{route('online-payment')}}">Online Payment</a>
             </li>
                 <li class="nav-item">
                     <a class="nav-link active btn btn-success" aria-current="page" href="{{route('apply')}}">Apply for Join Us</a>
