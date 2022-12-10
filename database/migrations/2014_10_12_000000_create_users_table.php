@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('email')->unique();
             $table->string('contact')->nullable();
+            $table->string('course_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->enum("status",["1","2","0"])->default(0);
             $table->enum("user_type",["admin","user"])->default('user');
