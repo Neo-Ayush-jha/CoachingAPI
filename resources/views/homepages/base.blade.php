@@ -14,6 +14,7 @@
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark " style="background-image: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important">
@@ -30,7 +31,7 @@
             </li>
               <li class="nav-item">
                 {{-- <a class="nav-link active" aria-current="page" href="">Online Payment</a> --}}
-                <a class="nav-link active" aria-current="page" href="{{route('online-payment')}}">Online Payment</a>
+                <a class="nav-link active" aria-current="page" href="{{route('onlinePayment')}}">Online Payment</a>
             </li>
                 <li class="nav-item">
                     <a class="nav-link active btn btn-success" aria-current="page" href="{{route('apply')}}">Apply for Join Us</a>

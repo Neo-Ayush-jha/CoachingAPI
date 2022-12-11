@@ -34,6 +34,8 @@ class CourseDetailsController extends Controller
             ],200);
             return view('unsert_course');
         }
+        
+
     
     /* -----------------------------------------Display the specified resource.                                                  */
         public function store(Request $request){

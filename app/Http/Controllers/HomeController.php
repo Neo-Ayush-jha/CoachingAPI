@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Razorpay;
+// use Razorpay;
 use Razorpay\Api\Api;
 use Session;
 use App\Models\User;
@@ -64,11 +64,22 @@ class HomeController extends Controller
         // return view("homepages/apply");
     }
 
-    public function show($id)
-    {
-        //
+    public function indexStudent(){
+        $data['students'] = User::where("status","1")->get();
+        $data['title']="Active";
+        return view("admin/manageStudents",$data);
     }
 
+    public function newAdmission(){
+        $data['students']=User::where("status","0")->get();
+        $data['title']="New Admission";
+        return view("admin/manageStudents",$data);
+    }
+    public function passOut(){
+        $data['students']=User::where("status","2")->get();
+        $data['title']="Pass Out";
+        return view("admin/manageStudents",$data);
+    }
 
     public function edit($id)
     {
@@ -88,6 +99,14 @@ class HomeController extends Controller
     }
 
 //-----------------------------------------------Payment Method
+
+
+public function index2()
+{    
+    $data['courses']=Courses::all();
+    return view('homepages/onlinePayment',$data);
+}
+
 public function onlinePayment(Request $req){
     $contact=$req->contact;
     if($req->has('contact')):
@@ -99,19 +118,33 @@ public function onlinePayment(Request $req){
 }
 
 
-    public function index2()
-    {    
-        return view('homepages/onlinePayment');
-    }
+    public function makepayment(Request $req)
+    {
+        $contact = $req->contact;
+        // dd($contact);
+        $std = User::where("contact",$contact)->with('course')->first();
+        $pay = Payment::find($req->pay_id);
+        $payment = Api::with('receive');
+        $payment->prepare([
+          'user' => $std->id,
+          'contact' => $std->contact,
+          'email' => $std->email,
+          'fee' => $pay->fee,
+          'callback_url' => "http://localhost:8000/online-payment/call-back"
+        ]);
+        return $payment->receive();
+    }  
+
 
     
-    private $razorpayId = "rzp_test_ISOwomsQzcDDQt";
-    private $razorpayKey = "53hKzsqH5MyVyXclZmscoHKP";
+    // private $razorpayId = "rzp_test_ISOwomsQzcDDQt";
+    // private $razorpayKey = "53hKzsqH5MyVyXclZmscoHKP";
 
     public function store2(Request $request)
-    {
+    { 
         $input = $request->all();
-        $api = new Api($this->razorpayId, $this->razorpayKey);
+        $api = new Api("rzp_test_ISOwomsQzcDDQt", "53hKzsqH5MyVyXclZmscoHKP");
+        dd($api);
         $payment = $api->payment->fetch($input['razorpay_payment_id']);
         if(count($input)  && !empty($input['razorpay_payment_id'])) {
             try {
@@ -127,29 +160,4 @@ public function onlinePayment(Request $req){
         return redirect()->back();
     }
 
-    public function paymentCallback()
-    {
-        $transaction = Razorpay::with('receive');
-        
-        $response = $transaction->response();         
-        if($transaction->isSuccessful()){
-            $order_id = $response['ORDERID'];
-            $paymentRecord = Payment::find($order_id);
-            $studentRecord = User::find($paymentRecord->student_id);
-            AdminController::makeCashPayment($studentRecord->id,$paymentRecord->id);
-            return redirect()->back();
-
-        }else if($transaction->isFailed()){
-          echo "failed";
-        }else if($transaction->isOpen()){
-          echo "processing";
-        }
-        $transaction->getResponseMessage(); //Get Response Message If Available
-//get important parameters via public methods//get important parameters via public methods
-        $transaction->getOrderId(); // Get order id
-        $transaction->getTransactionId(); // Get transaction id
-    }    
-
-
-    
 }

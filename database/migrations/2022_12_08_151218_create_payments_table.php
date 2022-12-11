@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("user_id")->constrained();
+            $table->integer("amount");
+            $table->date("due_date")->nullable();
+            $table->enum("status",["paid","due"])->default("due");
+            $table->date("date_of_payment")->nullable();
             $table->timestamps();
         });
     }

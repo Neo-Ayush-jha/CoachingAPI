@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
+use App\Models\{Course,course_details,User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,7 +12,7 @@ class CourseController extends Controller
     public function index()
     {
         $data['course']=Course::all();
-        return view('admin.insert.dashboard',$data);
+        return view('admin.manage_course',$data);
     }
 
 /* -----------------------------------------Show the form for creating a new resource.                          */
@@ -35,9 +35,12 @@ class CourseController extends Controller
         return response()->json([
             'return' => $new_data,
         ],200);
-        return view('insert_user');
+        return view('admin.insert_course');
     }
 
+    public function create2(){
+        return view("admin.insert_course"); 
+     }
 
 /* -----------------------------------------Display the specified resource.                                                  */
     public function store(Request $request){
@@ -94,6 +97,7 @@ class CourseController extends Controller
                     'return'=>data,
                     "massage"=>'Oooo... Data is not save by you ayush'
                 ],201);
+                return view("admin.insert_course");
             }
         }catch(\Throwable $th){
             return response()->json([
@@ -122,5 +126,14 @@ class CourseController extends Controller
         $user['data']=$course;
         $course->delete();
         return response()->json([$user,'massage'=>'Data is deleted successfuly']);
+    }
+
+    public function addCourse($id){
+        $data['courses']=Course::find($id);
+        $std['student']=User::find($id);
+        // dd($std);
+        $data['courseDetails']=course_details::all();
+
+        return view("homepages/singleCourse",$data);
     }
 }

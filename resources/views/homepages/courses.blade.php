@@ -17,44 +17,20 @@
                                     <div class="col-9">
                                         <h1 class="display-6 fs-1 fw-bold">{{ $item->title }}</h1>
                                         <p class="small text-justify">{{ $item->description }}</p>
-                                        <div class="d-flex mt-4">
-                                            <p class="h6 "><strong>Course Fee: </strong> ₹ {{ $item->fee }}</p>
-                                            <p class="h6 ms-3"><strong>Duration : </strong>{{ $item->duration }} months</p>
-                                            <p class="h6 ms-3"><strong>Instructor : </strong>{{ $item->instructor }}</p>
-                                            <p class="h6 ms-3"><strong>Category : </strong>{{ $item->description }}</p>
+                                        <div class="d-flex mt-4 mx-auto">
+                                            <p class="h5 "><strong>Course Fee: </strong> ₹ {{ $item->fee }}</p>
+                                            <p class="h5 ms-3"><strong>Duration : </strong>{{ $item->duration }} months</p>
+                                            <p class="h5 ms-3"><strong>Instructor : </strong>{{ $item->instructor }}</p>
+                                            {{-- <p class="h6 ms-3"><strong>Category : </strong>{{ $item->description }}</p> --}}
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <table class="table table-striped table-bordered border-secondary border border-1 rounded">
-                                                    <tr>
-                                                        <th>id</th>
-                                                        <th>Title</th>
-                                                        <th>Sub title</th>
-                                                        <th>Course name</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                    @foreach ($course_details as $pay)
-                                                        @if ($item->id == $pay->course_id )
-                                                            <tr>
-
-                                                                <td>{{ $pay->id }}</td>
-                                                                <td>{{ $pay->title }}</td>
-                                                                <td>
-                                                                    @if ($pay->parent_id != 0)
-                                                                         {{$pay->parent_id}}
-                                                                    @else
-                                                                        main
-                                                                    @endif
-                                                                </td>
-                                                                <td>{{ $pay->course_id }}</td>
-                                                                <td>
-                                                                    <a href="" class="btn btn-success disabled">Attend</a>
-                                                                </td>
-                                                            </tr>
-                                                        @endif
-                                                    @endforeach
-                                                </table>
-                                            </div>
+                                        <div class="row mt-3 mx-auto">
+                                                        {{-- <a href="{{route("addCourse",['id'=>$item->id])}}" class="btn btn-danger btn-sm p-0"><i class="bi bi-trash"></i></a> --}}
+                                                        <div class="col-5 mx-auto">
+                                                            <div class="row text-center">
+                                                                <div class="col"><a href="{{route("addCourse",['id'=>$item->id])}}  " class="btn btn-success  "><i class="bi bi-check"></i>Add</a></div>
+                                                                <div class="col"><a href="{{route("addCourse",['id'=>$item->id])}} " class="btn btn-warning "><i class="bi bi-eye"></i>View detales</a></div>
+                                                            </div>
+                                                        </div>
                                         </div>
                                     </div>
                                         
