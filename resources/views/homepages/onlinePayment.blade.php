@@ -38,11 +38,11 @@
                                         data-amount="{{ $userDetail->course->fee*100 }}" 
                                         data-currency="INR"
                                         data-buttontext="Pay {{ $userDetail->course->fee }} INR"
-                                        data-name="Neo Ayush"
+                                        data-name="{{ $userDetail->name }}"
                                         data-description="Rozerpay"
                                         data-image="https://boomi.com/wp-content/uploads/cws-logo.png"
                                         data-prefill.name="name"
-                                        data-prefill.email="email"
+                                        data-prefill.email="{{ $userDetail->email }}"
                                         data-theme.color="red"></script>
                                     </form>
                                 </td>

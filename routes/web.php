@@ -56,3 +56,5 @@ Route::prefix("admin")->group(function(){
     Route::get("/course/insert",[CourseController::class,"create2"])->name("course.insert_course");
     Route::resource('course', CourseController::class); 
 });
+Route::get("/course/addCourse/{c_id}",[HomeController::class,"addCourse"])->middleware(['auth'])->name("course.addCourse");
+// Route::get("/course/addCourse/{c_id}",[HomeController::class,"addCourse"])->name("course.addCourse");

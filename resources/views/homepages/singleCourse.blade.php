@@ -48,7 +48,7 @@
                                                                 </td>
                                                                 <td>{{  $courses->title }}</td>
                                                                 <td>
-                                                                    <a href="{{route("addCourse",['id'=>$pay->id])}} " class="btn btn-success disabled"><i class="bi bi-eye"></i> Attend</a>                                                                        
+                                                                    <a href="{{route("course.addCourse",['id'=>$pay->id])}} " class="btn btn-success disabled"><i class="bi bi-eye"></i> Attend</a>                                                                        
                                                                     {{-- @if ($student->status == "1")
                                                                         <a href="" class="btn btn-success "><i class="bi bi-eye"></i> Attend</a>                                                                        
                                                                         @else

@@ -1,18 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-// use Razorpay;
-use Razorpay\Api\Api;
 use Session;
-use App\Models\User;
-use App\Models\Payment;
-use App\Models\Course;
-use App\Models\course_details;
+use Razorpay\Api\Api;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\{User,Course,orders,Payment,course_details,OrderItem};
 
 class HomeController extends Controller
 {
-
     public function index(){
         $data['courses']=Course::all();
         $data['course_details']=course_details::all();
@@ -25,13 +21,10 @@ class HomeController extends Controller
         // $data['course_details']=course_details::all();
         return view("homepages/courses" , $data);   
     }
-   
-
     public function create()
     {
         //
     }
-
     public function apply(Request $req){
         // dd($request->image); die;
         if($req->method() == "POST"){
@@ -63,7 +56,6 @@ class HomeController extends Controller
         
         // return view("homepages/apply");
     }
-
     public function indexStudent(){
         $data['students'] = User::where("status","1")->get();
         $data['title']="Active";
@@ -80,27 +72,20 @@ class HomeController extends Controller
         $data['title']="Pass Out";
         return view("admin/manageStudents",$data);
     }
-
     public function edit($id)
     {
         //
     }
-
-
     public function update(Request $request, $id)
     {
         //
     }
-
-
     public function destroy($id)
     {
         //
     }
 
-//-----------------------------------------------Payment Method
-
-
+//-----------------------------------------------Payment Method--------------------------------->
 public function index2()
 {    
     $data['courses']=Courses::all();
@@ -117,7 +102,6 @@ public function onlinePayment(Request $req){
     endif;
 }
 
-
     public function makepayment(Request $req)
     {
         $contact = $req->contact;
@@ -133,11 +117,8 @@ public function onlinePayment(Request $req){
           'callback_url' => "http://localhost:8000/online-payment/call-back"
         ]);
         return $payment->receive();
-    }  
+    } 
 
-
-    
-    
     public function paymentCallback(Request $request)
     { 
         $input = $request->all();
@@ -160,4 +141,41 @@ public function onlinePayment(Request $req){
         return redirect()->back();
     }
 
+
+//------------------------------------------------ add course----------------------------------> 
+// public function addCourse(Request $req,$c_id){
+//     $user = Auth::user();
+//     $subject=Course::find($c_id);
+//     if($user){
+//         $order=OrderItem::where([['ordered',false],["user_id",Auth::id()]])->first();
+//         if($order){
+//             $orderItem=Order::where([['ordered',false],['course_id',$order->id],['user_id',$user->id]])->first();
+//             // $orderItem=get_order();
+//             if($orderItem){
+//                 $orderItem->qty +=1;
+//                 $orderItem->save();
+//             }
+//             else{
+//                 $oi=new Order();
+//                 $oi->ordered=false;
+//                 $oi->course_id=$order->id;
+//                 $oi->user_id=$user->id;
+//                 $oi->save();
+//             }
+//         }
+//         else{
+//             $ord=new OrderItem();
+//             $ord->ordered=false;
+//             $ord->user_id=$user->id;
+//             $ord->save();
+
+//             $oi=new Order();
+//             $oi->ordered=false; 
+//             $oi->user_id=$user->id;
+//             $oi->course_id=$ord->id;
+//             $oi->save();
+//         }
+//         return redirect()->route("homepage");
+//     }
+// }
 }
