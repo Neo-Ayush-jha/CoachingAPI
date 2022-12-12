@@ -137,18 +137,18 @@ public function onlinePayment(Request $req){
 
 
     
-    // private $razorpayId = "rzp_test_ISOwomsQzcDDQt";
-    // private $razorpayKey = "53hKzsqH5MyVyXclZmscoHKP";
-
-    public function store2(Request $request)
+    
+    public function paymentCallback(Request $request)
     { 
         $input = $request->all();
-        $api = new Api("rzp_test_ISOwomsQzcDDQt", "53hKzsqH5MyVyXclZmscoHKP");
-        dd($api);
+        $razorpayKey = "rzp_test_JcTEYdlpexwZV0";
+        $razorpaySecret = "OMZbzgbIRevKm8e9qZv0tihQ";
+        $api = new Api($razorpayKey, $razorpaySecret);
         $payment = $api->payment->fetch($input['razorpay_payment_id']);
         if(count($input)  && !empty($input['razorpay_payment_id'])) {
             try {
                 $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment->amount )); 
+                dd($response);
   
             } catch (Exception $e) {
                 return  $e->getMessage();

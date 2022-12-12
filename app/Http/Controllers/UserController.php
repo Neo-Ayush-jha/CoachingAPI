@@ -192,7 +192,7 @@ public function resister(Request $request){
         'gender'=>'required|string|max:1',
         'address'=>'required|string',
         'contact'=>'required|string|max:10',
-        'password'=>'required|string|max:6|confirmed',
+        'password'=>'required|string|max:8|confirmed',
         'email'=>'required|string|email|max:100|unique:users',
     ]);
     if($validator->fails()){
@@ -209,7 +209,8 @@ public function resister(Request $request){
     ]);
     return response()->json([
         'massage'=>"Hee ayush you resister successfuly",
-        'user'=>$user
+        'user'=>$user,
+        
     ]);
    }
 
@@ -217,7 +218,7 @@ public function resister(Request $request){
    public function login(Request $request){
         $validator = Validator::make($request->all(),[
             'email'=>'required|string|email',
-            'password'=>'required|string|max:6'
+            'password'=>'required|string|max:9'
         ]);
         if($validator->fails()){
             return response()->json($validator->errors(),400);

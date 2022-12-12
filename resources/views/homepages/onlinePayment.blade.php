@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        @if ($userDetail)
+        @if (isset($userDetail))
             <div class="row">
                 <div class="col-lg-12">
                     <table class="table">
@@ -34,7 +34,7 @@
                                     <form action="{{ route('callback') }}" method="POST" >
                                         @csrf
                                         <script src="https://checkout.razorpay.com/v1/checkout.js"
-                                        data-key="rzp_test_ISOwomsQzcDDQt"
+                                        data-key="rzp_test_JcTEYdlpexwZV0"
                                         data-amount="{{ $userDetail->course->fee*100 }}" 
                                         data-currency="INR"
                                         data-buttontext="Pay {{ $userDetail->course->fee }} INR"
@@ -50,25 +50,7 @@
                         {{-- @endforeach --}}
                     </table>
                 </div>
-            </div>              
-        @else:
-            <table class="table">
-                <tr>
-                    <th>id</th>
-                    <th>Name</th>
-                    <th>Month</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                </tr>
-                    <tr>
-                        <td>{{ $userDetail->id }}</td>
-                        <td>{{ $userDetail->name }}</td>
-                        <td>{{ $userDetail->amount }}</td>
-                        <td>
-                            
-                        </td>
-                    </tr>
-            </table>            
+            </div>        
         @endif
     </div>
 @endsection

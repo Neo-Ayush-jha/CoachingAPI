@@ -9,7 +9,7 @@ class Course extends Model
 {
     use HasFactory;
     public function course_details(){
-        return $this->hasOne(course_details::class,'id',"parent_id");
+        return $this->hasMany(course_details::class,'id',"parent_id");
     }
     
 }

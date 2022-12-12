@@ -41,14 +41,14 @@
                                                                 <td>{{ $pay->title }}</td>
                                                                 <td>
                                                                     @if ($pay->parent_id != 0)
-                                                                         {{$pay->parent_id}}
+                                                                         {{$pay->course_details->title}}
                                                                     @else
                                                                         main
                                                                     @endif
                                                                 </td>
                                                                 <td>{{  $courses->title }}</td>
                                                                 <td>
-                                                                    <a href="" class="btn btn-success disabled"><i class="bi bi-eye"></i> Attend</a>                                                                        
+                                                                    <a href="{{route("addCourse",['id'=>$pay->id])}} " class="btn btn-success disabled"><i class="bi bi-eye"></i> Attend</a>                                                                        
                                                                     {{-- @if ($student->status == "1")
                                                                         <a href="" class="btn btn-success "><i class="bi bi-eye"></i> Attend</a>                                                                        
                                                                         @else
