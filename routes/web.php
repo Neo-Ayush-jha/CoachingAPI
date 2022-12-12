@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,8 +34,8 @@ Route::post('payment', [HomeController::class, 'store2']);
 
 
 
-// Route::prefix("admin")->middleware(['auth', 'verified'])->group(function(){
-Route::prefix("admin")->group(function(){
+Route::prefix("admin")->middleware(['auth', 'verified'])->group(function(){
+// Route::prefix("admin")->group(function(){
     Route::get("/",[AdminController::class,"dashboard"])->name("admin.dashboard");
     Route::get("/approve-student/{id}", [AdminController::class,'approveStudent'])->name("admin.approve.student");
 

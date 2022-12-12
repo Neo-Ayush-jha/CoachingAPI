@@ -1,15 +1,19 @@
 @extends('../homepages/base')
 @section('ayush')
-   <div class="content">
+   <div class="content" style="background-color: #ddd">
        <div class="container mt-3">
            <div class="row">
-               <div class="col-6 offset-3">
+        <div class="col-8">
+            <img src="../../public/cover/logo.svg" alt="" class="img-fluid card-img-top shadow-lg " style="border-radius: 1.5rem">
+        </div>
+               <div class="col-4 ">
                    <x-guest-layout> 
                        <x-auth-card>
                            <x-slot name="logo">
                                <a href="/admin">
-                                   <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                               </a>
+                                   {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
+                                   <img src="https://boomi.com/wp-content/uploads/cws-logo.png" alt="" class="my-0 py-0 mx-auto"  style="width:50%">
+                                </a>
                            </x-slot>
                    
                            <!-- Session Status -->
