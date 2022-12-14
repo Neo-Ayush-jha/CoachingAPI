@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Session;
+use Carbon\Carbon;
 use Razorpay\Api\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -129,7 +130,21 @@ public function onlinePayment(Request $req){
         if(count($input)  && !empty($input['razorpay_payment_id'])) {
             try {
                 $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment->amount )); 
+// ---------------------------------------------------data add in database---------------------- 
+                if($payment->isSuccessful()){
+                    //Transaction Successful
+                    print_r($response);
+                    $pay = Paymentt::where("course_id",get_course()->id)->first();
+                    $pay->txn_id = $response['id'];
+                    $pay->bank_name = $response['wallet'];
+                    $pay->mode = $response["method"];
+                    $pay->dateofpayment = $response["14/12/2022"];
+                    $pay->status = 1;
+                    $pay->save();
+                }
+// ---------------------------------------------------data add in database---------------------- 
                 dd($response);
+                //   return redirect()->back();
   
             } catch (Exception $e) {
                 return  $e->getMessage();
@@ -139,32 +154,7 @@ public function onlinePayment(Request $req){
         }          
         Session::put('success', 'Payment successful');
 
-        if($transaction->isSuccessful()){
-            //Transaction Successful
-            print_r($response);
-            $pay = Paymentt::where("course_id",get_course()->id)->first();
-            $pay->txn_id = $response['id'];
-            $pay->bank_name = $response['wallet'];
-            $pay->mode = $response["method"];
-            $pay->dateofpayment = $response["14/12/2022"];
-            $pay->status = 1;
-            $pay->save();
-           
-            
-            $order = get_course();
-            $order->ordered = true;
-            $order->dateOfOrder=Carbon::now()->toDateTimeString();
-            foreach($order->orderItem as $item){
-                $item->ordered = true;
-                $item->save();
-            }
-            $order->save();
-  
-          }else if($transaction->isFailed()){
-            //Transaction Failed
-          }else if($transaction->isOpen()){
-            //Transaction Open/Processing
-          }
+        
         return redirect()->back();
     }
 
