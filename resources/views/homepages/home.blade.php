@@ -12,22 +12,24 @@
                 <div class="card shadow border-0">
                     <div class="card-body ">
                         <h3 class="ps-2"style="border-left:6px solid #32393f">Our Courses  </h3>                       
-                        {{-- <p class="m-0 fw-bolder">Rs. 6000/- <del>Rs. 9000/-</del></p> --}}
+                        {{-- <p class="m-0 fw-bolder">Rs. 6000/- <del>Rs. 9000/-</del></p>               {{route("addCourse",['id'=>$item->id])}}   --}}
                     </div>
                 </div>
             </div>
             <div class="row mt-5">
                 @foreach ($courses as $item)
                 <div class="col-lg-2 col-6 mb-3 ">
-                    <div class="card border text-center  shadow-lg h-100">
-                        <img src="{{ asset('cover/' . $item->cover) }}" alt="" class="card-img-top  shadow-lg img-fluid">
-                        <div class="card-body p-2 pb-0  mb-0">
-                            <h3 class="h6  mb-0">{{ $item->title }}</h3>
+                    <a href="{{route("addCourse",['id'=>$item->id])}}" class="text-dark">
+                        <div class="card border text-center  shadow-lg h-100">
+                            <img src="{{ asset('cover/' . $item->cover) }}" alt="" class="card-img-top  shadow-lg img-fluid h-75">
+                            <div class="card-body p-2 pb-0  mb-0">
+                                <h3 class="h6  mb-0">{{ $item->title }}</h3>
+                            </div>
+                            <div class="card-footer">
+                                <h3 class="mb-0 small"><strong>Duration : {{ $item->duration }} months</strong></h3>
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <h3 class="fs-bold  mb-0 small"><strong>Duration : {{ $item->duration }} months</strong></h3>
-                        </div>
-                    </div>
+                    </a>
                 </div>
                 @endforeach
             </div>

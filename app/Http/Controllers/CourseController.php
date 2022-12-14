@@ -130,7 +130,7 @@ class CourseController extends Controller
 
     public function addCourse($id){
         $data['courses']=Course::find($id);
-        $std['student']=User::find($id);
+        $std['user']=User::find($id);
         // dd($std);
         $data['courseDetails']=course_details::all();
 

@@ -5,7 +5,7 @@ use Session;
 use Razorpay\Api\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\{User,Course,orders,Payment,course_details,OrderItem};
+use App\Models\{User,Course,Order,Payment,course_details,OrderItem,Paymentt};
 
 class HomeController extends Controller
 {
@@ -138,44 +138,49 @@ public function onlinePayment(Request $req){
             }
         }          
         Session::put('success', 'Payment successful');
+
+        if($transaction->isSuccessful()){
+            //Transaction Successful
+            print_r($response);
+            $pay = Paymentt::where("course_id",get_course()->id)->first();
+            $pay->txn_id = $response['id'];
+            $pay->bank_name = $response['wallet'];
+            $pay->mode = $response["method"];
+            $pay->dateofpayment = $response["14/12/2022"];
+            $pay->status = 1;
+            $pay->save();
+           
+            
+            $order = get_course();
+            $order->ordered = true;
+            $order->dateOfOrder=Carbon::now()->toDateTimeString();
+            foreach($order->orderItem as $item){
+                $item->ordered = true;
+                $item->save();
+            }
+            $order->save();
+  
+          }else if($transaction->isFailed()){
+            //Transaction Failed
+          }else if($transaction->isOpen()){
+            //Transaction Open/Processing
+          }
         return redirect()->back();
     }
 
 
 //------------------------------------------------ add course----------------------------------> 
-// public function addCourse(Request $req,$c_id){
-//     $user = Auth::user();
-//     $subject=Course::find($c_id);
-//     if($user){
-//         $order=OrderItem::where([['ordered',false],["user_id",Auth::id()]])->first();
-//         if($order){
-//             $orderItem=Order::where([['ordered',false],['course_id',$order->id],['user_id',$user->id]])->first();
-//             // $orderItem=get_order();
-//             if($orderItem){
-//                 $orderItem->qty +=1;
-//                 $orderItem->save();
-//             }
-//             else{
-//                 $oi=new Order();
-//                 $oi->ordered=false;
-//                 $oi->course_id=$order->id;
-//                 $oi->user_id=$user->id;
-//                 $oi->save();
-//             }
-//         }
-//         else{
-//             $ord=new OrderItem();
-//             $ord->ordered=false;
-//             $ord->user_id=$user->id;
-//             $ord->save();
+    public function addCourse2(Request $req,$id){
+        $data=Course::find($id);
+        $user = Auth::user();
+        $course = $req->course_id;
+        $user = $req->user_id;
+        $sc = new Order();
+        $sc->course_id = $data;
+        $sc->user_id = $user;
+        $sc->save();
+        // dd($sc);
 
-//             $oi=new Order();
-//             $oi->ordered=false; 
-//             $oi->user_id=$user->id;
-//             $oi->course_id=$ord->id;
-//             $oi->save();
-//         }
-//         return redirect()->route("homepage");
-//     }
-// }
+            return redirect()->back();
+    }
 }

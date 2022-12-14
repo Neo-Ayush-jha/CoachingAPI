@@ -48,13 +48,13 @@
                                                                 </td>
                                                                 <td>{{  $courses->title }}</td>
                                                                 <td>
-                                                                    <a href="{{route("course.addCourse",['id'=>$pay->id])}} " class="btn btn-success disabled"><i class="bi bi-eye"></i> Attend</a>                                                                        
+                                                                    <a href="{{route('course.addCourse')}} " class="btn btn-success "><i class="bi bi-eye"></i> Attend</a>                                                                        
                                                                     {{-- @if ($student->status == "1")
                                                                         <a href="" class="btn btn-success "><i class="bi bi-eye"></i> Attend</a>                                                                        
                                                                         @else
-                                                                        <a href="" class="btn btn-success disabled"><i class="bi bi-eye"></i> Attend</a>                                                                        
-                                                                    @endif --}}
-                                                                </td>
+                                                                        @endif 
+                                                                    </td> --}}
+                                                                    {{-- <a href="" class="btn btn-success disabled"><i class="bi bi-eye"></i> Attend</a>                                                                         --}}
                                                             </tr>
                                                         @endif
                                                     @endforeach

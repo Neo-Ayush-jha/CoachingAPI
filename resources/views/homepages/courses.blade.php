@@ -27,8 +27,8 @@
                                                         {{-- <a href="{{route("addCourse",['id'=>$item->id])}}" class="btn btn-danger btn-sm p-0"><i class="bi bi-trash"></i></a> --}}
                                                         <div class="col-5 mx-auto">
                                                             <div class="row text-center">
-                                                                <div class="col"><a href="{{route("addCourse",['id'=>$item->id])}}  " class="btn btn-success  "><i class="bi bi-check"></i>Add</a></div>
-                                                                <div class="col"><a href="{{route("addCourse",['id'=>$item->id])}} " class="btn btn-warning "><i class="bi bi-eye"></i>View detales</a></div>
+                                                                <div class="col"><a href="{{route("course.addCourse",['id'=>$item->id])}}  " class="btn btn-success  "><i class="bi bi-check"></i>Add</a></div>
+                                                                <div class="col"><a href="{{route("course.addCourse",['id'=>$item->id])}} " class="btn btn-warning "><i class="bi bi-eye"></i>View detales</a></div>
                                                             </div>
                                                         </div>
                                         </div>
