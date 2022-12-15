@@ -18,8 +18,8 @@
 </head>
 <body style="background-color: #ddd">
     <nav class="navbar navbar-expand-lg navbar-dark " style="background-image: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important">
-        <div class="container">
-          <a class="navbar-brand" href="/"> CWS | portal</a>
+        <div class="container mx-5">
+          <a class="navbar-brand " href="/"> CWS | portal</a>
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">Home</a>

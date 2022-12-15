@@ -26,7 +26,7 @@
                 @foreach ($payment as $due)
                     <tr>
                         <td>{{$due->id}}</td>
-                        <td>{{$due->student->name}}</td>
+                        <td>{{$due->user->name}}</td>
                         <td>{{$due->amount}}</td>
                         <td>{{$due->due_date}}</td>
                         <td><span class="badge bg-danger rounded-pill">{{$due->status}}</span></td>

@@ -7,20 +7,20 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 require __DIR__.'/auth.php';
 
 
-Route::get('/' ,[HomeController::class,"index"])->name("homepage");
+Route::get('/h' ,[HomeController::class,"index"])->name("homepage");
 // Route::get('/contact' ,[HomeController::class,"contact"])->name("contact");
 Route::match(['get','post'],'/apply' ,[HomeController::class,"apply"])->name("apply");
 Route::get('/courses' ,[HomeController::class,"courses"])->name("courses");
@@ -34,7 +34,8 @@ Route::post('payment', [HomeController::class, 'store2']);
 
 
 
-Route::prefix("admin")->middleware(['auth', 'verified'])->group(function(){
+// Route::prefix("admin")->middleware(['auth'])->group(function(){
+Route::prefix("admin")->group(function(){
     Route::get("/",[AdminController::class,"dashboard"])->name("admin.dashboard");
     Route::get("/approve-student/{id}", [AdminController::class,'approveStudent'])->name("admin.approve.student");
 
@@ -51,6 +52,9 @@ Route::prefix("admin")->middleware(['auth', 'verified'])->group(function(){
     Route::get("/manage/student/new",[HomeController::class,"newAdmission"])->name("admin.manage.student.new");
     
     Route::get("/manage/student/passout",[HomeController::class,"passOut"])->name("admin.manage.student.passout");
-    Route::get("/view-course/{id}",[CourseController::class,"addCourse"])->name("addCourse");
+    Route::get("/course/insert",[CourseController::class,"create2"])->name("course.insert_course");
     Route::resource('course', CourseController::class); 
+    // Route::post("/course/addCourse/{id}",[HomeController::class,"addCourse2"])->middleware(['auth'])->name("course.addCourse");
 });
+Route::get("/view-course/{id}",[CourseController::class,"addCourse"])->name("addCourse");
+Route::match(["get","post"], "/course/addCourse/{id}",[HomeController::class,"addCourse2"])->middleware(['auth'])->name("course.addCourse");

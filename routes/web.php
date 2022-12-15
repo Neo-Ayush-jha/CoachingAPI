@@ -3,19 +3,20 @@
 use App\Http\Controllers\{ProfileController,HomeController,AdminController,CourseController};
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 require __DIR__.'/auth.php';
 
@@ -52,9 +53,9 @@ Route::prefix("admin")->group(function(){
     Route::get("/manage/student/new",[HomeController::class,"newAdmission"])->name("admin.manage.student.new");
     
     Route::get("/manage/student/passout",[HomeController::class,"passOut"])->name("admin.manage.student.passout");
-    Route::get("/view-course/{id}",[CourseController::class,"addCourse"])->name("addCourse");
     Route::get("/course/insert",[CourseController::class,"create2"])->name("course.insert_course");
     Route::resource('course', CourseController::class); 
     // Route::post("/course/addCourse/{id}",[HomeController::class,"addCourse2"])->middleware(['auth'])->name("course.addCourse");
 });
-Route::get("/course/addCourse/{id}",[HomeController::class,"addCourse2"])->name("course.addCourse");
+Route::get("/view-course/{id}",[CourseController::class,"addCourse"])->name("addCourse");
+Route::match(["get","post"], "/course/addCourse/{id}",[HomeController::class,"addCourse2"])->middleware(['auth'])->name("course.addCourse");

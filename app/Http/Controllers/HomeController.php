@@ -131,9 +131,8 @@ public function onlinePayment(Request $req){
             try {
                 $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment->amount )); 
 // ---------------------------------------------------data add in database---------------------- 
-                if($payment->isSuccessful()){
+                if($payment){
                     //Transaction Successful
-                    print_r($response);
                     $pay = Paymentt::where("course_id",get_course()->id)->first();
                     $pay->txn_id = $response['id'];
                     $pay->bank_name = $response['wallet'];
@@ -161,6 +160,7 @@ public function onlinePayment(Request $req){
 
 //------------------------------------------------ add course----------------------------------> 
     public function addCourse2(Request $req,$id){
+        dd($id);
         $data=Course::find($id);
         $user = Auth::user();
         $course = $req->course_id;
