@@ -7,9 +7,13 @@
        <h1 style="background: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important" class="my-0 text-warning text-center  py-0">Pleace go and login</h1> 
     @endguest
     <div class="container-fluid text-white py-5"style="background: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important">
-        <div class="container py-5 ">
-            <h5 class="display-6 text-light" style="font-size:80px;font-family:Nunito;">Skill Hai! To Future Hai!</h5> 
-            <p class="lead text-light mt-3 fs-4" >"CWS is an on-demand marketplace for top Programming engineers, developers, consultants, architects, programmers, and tutors. Get your projects built by vetted web programming freelancers or learn from expert mentors with team training & coaching experiences in Project based training."</p>
+        <div class="container py-1 ">
+            <div class="row">
+                <div class="col-9"><h5 class="display-6 text-light" style="font-size:80px;font-family:Nunito;">Skill Hai! To Future Hai!</h5> 
+                    <p class="lead text-light mt-3 fs-4" >"CWS is an on-demand marketplace for top Programming engineers, developers, consultants, architects, programmers, and tutors. Get your projects built by vetted web programming freelancers or learn from expert mentors with team training & coaching experiences in Project based training."</p></div>
+                <div class="col-3"><img src="{{ asset('cover/' . 'home.svg') }}" alt="" class="img-fluid card-img-top shadow-lg mt-2" style="border-radius: 1.5rem;height:auto">
+                </div>
+            </div>
         </div>
     </div>  
     <div class="container mt-5">
