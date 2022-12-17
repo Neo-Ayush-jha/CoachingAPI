@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string("user_id")->constrained();
+            $table->foreignId("user_id")->constrained();
             $table->boolean('ordered')->default(0);
-            $table->string("course_id")->constrained();
+            $table->foreignId("course_id")->constrained();
             $table->enum("status",["paid","due"])->default("due");
             $table->timestamps();
         });

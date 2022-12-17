@@ -1,10 +1,10 @@
 @extends('homepages/base')
 @section('ayush')
     @auth
-        <h1 style="background: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important" class="my-0 text-warning text-center  py-0">Test Havo</h1>
+        <h1 style="background: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important" class="my-0 text-warning text-center  py-0">Hello Dear {{ Auth::user()->name }}</h1>
     @endauth
     @guest
-       <h1 style="background: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important" class="my-0 text-warning text-center  py-0">Yeh Guest User Hai</h1> 
+       <h1 style="background: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important" class="my-0 text-warning text-center  py-0">Pleace go and login</h1> 
     @endguest
     <div class="container-fluid text-white py-5"style="background: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important">
         <div class="container py-5 ">

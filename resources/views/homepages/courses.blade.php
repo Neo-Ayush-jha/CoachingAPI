@@ -4,8 +4,12 @@
        <div class="container mt-5 mb-5">
            <div class="row">
             <div class="col-3">
-                    <div class="d-inline-flex">
-                        <h5 class="border-0 border-primary h2 border-3 border-bottom px-2" style="border-radius: 5px">Our Courses</h5>
+                <div class="card shadow border-0">
+                    <div class="card-body ">
+                            <div class="d-inline-flex">
+                                <h3 class="ps-2 h2 px-2 text-danger"style="border-left:6px solid #32393f">Our Courses</h3>                       
+                            </div>
+                        </div>
                     </div>
             </div>
                 <div class="row">
@@ -16,14 +20,14 @@
                                 <div class="row">
                                     <div class="col-9">
                                         <h1 class="display-6 fs-1 fw-bold">{{ $item->title }}</h1>
-                                        <p class="small text-justify">{{ $item->description }}</p>
-                                        <div class="d-flex mt-4 mx-auto">
-                                            <p class="h5 "><strong>Course Fee: </strong> ₹ {{ $item->fee }}</p>
-                                            <p class="h5 ms-3"><strong>Duration : </strong>{{ $item->duration }} months</p>
-                                            <p class="h5 ms-3"><strong>Instructor : </strong>{{ $item->instructor }}</p>
+                                        <p class="text-justify mt-4">{{substr($item->description,0,300)}}...</p>
+                                        <div class="d-flex mt-3 mx-auto">
+                                            <p class="fs-3 "><strong>Course Fee: </strong> ₹ {{ $item->fee }}</p>
+                                            <p class="fs-3 ms-3"><strong>Duration : </strong>{{ $item->duration }} months</p>
+                                            <p class="fs-3 ms-3"><strong>Instructor : </strong>{{ $item->instructor }}</p>
                                             {{-- <p class="h6 ms-3"><strong>Category : </strong>{{ $item->description }}</p> --}}
                                         </div>
-                                        <div class="row mt-3 mx-auto">
+                                        <div class="row mt-5 mx-auto">
                                                         {{-- <a href="{{route("addCourse",['id'=>$item->id])}}" class="btn btn-danger btn-sm p-0"><i class="bi bi-trash"></i></a> --}}
                                                         <div class="col-5 mx-auto">
                                                             <div class="row text-center">

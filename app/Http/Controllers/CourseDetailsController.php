@@ -108,4 +108,24 @@ class CourseDetailsController extends Controller
             $course_details->delete();
             return response()->json([$user,'massage'=>'Data is deleted successfuly']);
         }
+    /*-------------------------------------------------------------form ui            */
+        public function create2(){
+            $data['courses']=Course::all();
+            $data['course_details'] = course_details::all();
+            return view("admin.insert_course_item",$data);
+        }
+        public function store2(Request $req){
+            if($req->method()=='Post'){
+                $data=$req->validate([
+                    'title'=>'required',
+                    'course_id'=>'required',
+                ]);
+                $data=new course_details();
+                $data->title=$req->title;
+                $data->parent_id=$req->parent_id;
+                $data->course_id=$req->course_id;
+                $data->save();
+                return redirect()->back();
+            }
+        }
     }

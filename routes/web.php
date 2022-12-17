@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{ProfileController,HomeController,AdminController,CourseController};
+use App\Http\Controllers\{ProfileController,HomeController,AdminController,CourseController,CourseDetailsController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -55,6 +55,8 @@ Route::prefix("admin")->group(function(){
     Route::get("/manage/student/passout",[HomeController::class,"passOut"])->name("admin.manage.student.passout");
     Route::get("/course/insert",[CourseController::class,"create2"])->name("course.insert_course");
     Route::resource('course', CourseController::class); 
+    Route::get('courseDetail', [CourseDetailsController::class,'create2'])->name('courseDetail.insert'); 
+    Route::post('courseDetail',[ CourseDetailsController::class,'store2'])->name('courseDetail.store'); 
     // Route::post("/course/addCourse/{id}",[HomeController::class,"addCourse2"])->middleware(['auth'])->name("course.addCourse");
 });
 Route::get("/view-course/{id}",[CourseController::class,"addCourse"])->name("addCourse");

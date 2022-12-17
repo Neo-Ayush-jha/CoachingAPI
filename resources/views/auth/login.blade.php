@@ -4,7 +4,7 @@
        <div class="container">
            <div class="row">
         <div class="col-md-8 col-sm-2 my-0 py-0">
-            {{-- <img src="../../../../../public/cover/logo.svg" alt="" class="img-fluid card-img-top shadow-lg " style="border-radius: 1.5rem"> --}}
+            <img src="{{ asset('cover/' . 'logo.svg') }}" alt="" class="img-fluid card-img-top shadow-lg mt-2" style="border-radius: 1.5rem;height:500px">
             <h1 class="fs-1 text-center py-5">Welcome</h1>
             {{-- C:\Users\lenovo\Desktop\Laravel\API\public\cover\logo.svg
             C:\Users\lenovo\Desktop\Laravel\API\resources\views\auth\login.blade.php --}}

@@ -9,17 +9,18 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Models\Course;
-class User extends Authenticatable implements JWTSubject
+// class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable 
 {
     use HasApiTokens, HasFactory, Notifiable;
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
+    // public function getJWTIdentifier()
+    // {
+    //     return $this->getKey();
+    // }
+    // public function getJWTCustomClaims()
+    // {
+    //     return [];
+    // }
     /**
      * The attributes that are mass assignable.
      *

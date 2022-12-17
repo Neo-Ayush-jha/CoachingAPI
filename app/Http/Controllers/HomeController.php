@@ -133,7 +133,10 @@ public function onlinePayment(Request $req){
 // ---------------------------------------------------data add in database---------------------- 
                 if($payment){
                     //Transaction Successful
-                    $pay = Paymentt::where("course_id",get_course()->id)->first();
+                    $data=Course::find($id);
+                    // dd($get_course);
+                    $pay=Paymentt::where([['status',false],['course_id',$data->id],["user_id",Auth::id()]])->first();
+                    // $pay = Paymentt::where("course_id",get_course()->id)->first();
                     $pay->txn_id = $response['id'];
                     $pay->bank_name = $response['wallet'];
                     $pay->mode = $response["method"];
@@ -144,7 +147,6 @@ public function onlinePayment(Request $req){
 // ---------------------------------------------------data add in database---------------------- 
                 dd($response);
                 //   return redirect()->back();
-  
             } catch (Exception $e) {
                 return  $e->getMessage();
                 Session::put('error',$e->getMessage());
@@ -160,17 +162,17 @@ public function onlinePayment(Request $req){
 
 //------------------------------------------------ add course----------------------------------> 
     public function addCourse2(Request $req,$id){
-        dd($id);
         $data=Course::find($id);
         $user = Auth::user();
-        $course = $req->course_id;
-        $user = $req->user_id;
+        // dd($user);
+        // $course = $req->course_id;
+        // $user = $req->user_id;
         $sc = new Order();
-        $sc->course_id = $data;
-        $sc->user_id = $user;
-        $sc->save();
+        $sc->course_id = $data->id;
+        $sc->user_id = $user->id;
         // dd($sc);
-
-            return redirect()->back();
+        $sc->save();
+        return redirect()->route("homepage");
+            // return redirect()->back();
     }
 }

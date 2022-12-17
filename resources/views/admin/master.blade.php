@@ -16,6 +16,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#333131;">
         <div class="container">
+            <img src="https://boomi.com/wp-content/uploads/cws-logo.png"  alt="" class=" navbar-brand px-3 my-0 py-1 text-gray-500"  style="width:10%;background-color:rgb(180, 236, 255);border-radius: 2rem">
           <a class="navbar-brand" href="">Admin| portal</a>
             <ul class="navbar-nav">
               <li class="nav-item">
@@ -25,7 +26,7 @@
                 <li class="nav-item">
                     <form action="{{route("logout")}}" method="POST">
                         @csrf
-                        <input type="submit" value="logout" class="btn btn-danger border-0">
+                        <input type="submit" value="logout" class="btn btn-danger border-0" style="border-radius: 2rem">
                     </form>
                 </li>
                 @endauth

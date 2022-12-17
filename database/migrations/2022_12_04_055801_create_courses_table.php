@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->integer('duration');
             $table->integer('fee');
-            $table->string('description')->nullable();
+            // $table->string('description')->nullable();
+            $table->longText('description')->nullable()->default('text');
             $table->string('instructor');
             $table->string('cover')->nullable();
             $table->integer('discount_fee')->nullable();

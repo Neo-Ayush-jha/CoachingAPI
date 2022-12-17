@@ -3,6 +3,9 @@
    <div class="content">
        <div class="container mt-2 mx-auto">
            <div class="row">
+            <div class="col-3"><div class="btn-group">
+                <a href="{{route('courseDetail.insert')}}" class="btn btn-success">Insert Course Detaile</a>
+             </div></div>
                <div class="col-6 offset-3">
                    <div class="card shadow">
                        <div class="card-body">

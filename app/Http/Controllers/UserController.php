@@ -192,7 +192,7 @@ public function resister(Request $request){
         'gender'=>'required|string|max:1',
         'address'=>'required|string',
         'contact'=>'required|string|max:10',
-        'password'=>'required|string|max:8|confirmed',
+        'password'=>'required|string|max:9|confirmed',
         'email'=>'required|string|email|max:100|unique:users',
     ]);
     if($validator->fails()){
@@ -207,10 +207,13 @@ public function resister(Request $request){
         'contact'=>$request->contact,
         'password'=>Hash::make($request->password),
     ]);
+    if(!$token=auth()->attempt($validator->validated())){
+        return response()->json(['error'=> 'Unauthorized']);
+    }
     return response()->json([
         'massage'=>"Hee ayush you resister successfuly",
         'user'=>$user,
-        
+        'token'=> $this->responseWithToken($token),
     ]);
    }
 

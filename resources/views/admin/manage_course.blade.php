@@ -30,7 +30,7 @@
                         <td>{{$item->instructor}}</td>
                         <td><del>{{$item->discount_fee}}</del> {{$item->fee}}</td>
                         <td>{{$item->duration}}</td>
-                        <td>{{$item->description}}</td>
+                        <td>{{substr($item->description,0,300)}}</td>
                         <td><img src="{{asset("cover/".$item->cover)}}" style="height:50px"  alt=""></td>
                         <td>
                             <form action="{{route('course.destroy',$item)}}" method="post">
