@@ -33,10 +33,24 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        if(isset($request['g-recaptcha-response']) && ($request['g-recaptcha-response'] !== null)) {
+            $secret = env('SECRET_KEY');
+            $response = $request['g-recaptcha-response'];
+            $verifyResponse = \file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$response);
+            $decodedResponse = \json_decode($verifyResponse);
+
+            if(!$decodedResponse->success) {
+                return back()->withInput()->with('error', 'Invalid Captcha');
+            }
+        }
+        else {
+            return back()->withInput()->with('error', 'Please fill captcha');
+        }
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // 'contact' => ['required','max:255', 'unique:' ],
         ]);
 
         $user = User::create([

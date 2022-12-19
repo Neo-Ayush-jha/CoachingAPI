@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-use App\Models\Payment;
+use App\Models\Paymentt;
 use App\Models\Course;
 use App\Models\course_details;
 use Illuminate\Http\Request;
@@ -24,10 +24,17 @@ class AdminController extends Controller
 
     public function dashboard(){
 
-        $data['countStudent'] = User::all()->count();
+        $data['user'] = User::all()->count();
         $data['countCourde'] = Course::all()->count();
-        $data['due_payment']=Payment::where("status","due")->get();
+        $data['due_payment']=Paymentt::where("payment_status","1")->get();
         return view("admin/dashboard",$data);
+    }
+    public function payment(){
+
+        $data['user'] = User::all()->count();
+        $data['countCourde'] = Course::all()->count();
+        $data['due_payment']=Paymentt::where("payment_status","1")->get();
+        return view("admin/managePayment",$data);
     }
 
 }

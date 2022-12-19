@@ -22,6 +22,7 @@
                                 <div class="mb-3">
                                     <label for="">Parint id</label>
                                     <select name="parent_id" id="" class="form-select">
+                                        <option value="0">Main tital</option>
                                         @foreach ($course_details as $item)
                                             <option value="{{ $item->id }}">{{ $item->title }}</option>
                                         @endforeach

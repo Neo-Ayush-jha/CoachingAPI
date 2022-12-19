@@ -43,7 +43,12 @@
                 
                                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
                             </div>
-                
+                            {{-- --Captur code--- --}}
+                            <div class="captcha_div mt-1">
+                                <div class="g-recaptcha" data-sitekey="{{ env('SITE_KEY') }}"></div>
+                                <input type="hidden" class="hiddenRecaptcha" name="hiddenRecaptcha" id="hiddenRecaptcha">
+                            </div>
+
                             <!-- Remember Me -->
                             <div class="block mt-4">
                                 <label for="remember_me" class="inline-flex items-center">
@@ -51,7 +56,7 @@
                                     <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                                 </label>
                             </div>
-                
+                            
                             <div class="flex items-center justify-end mt-4">
                                 @if (Route::has('password.request'))
                                     <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
@@ -71,4 +76,5 @@
            </div>
        </div>
    </div>
+   <script src="https://www.google.com/recaptcha/api.js"></script>
 @endsection

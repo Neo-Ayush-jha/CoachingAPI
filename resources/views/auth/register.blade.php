@@ -2,6 +2,11 @@
 @section('ayush')
     <div class="content" style="background-color: #ddd">
         <div class="container">
+            @if(session()->has('error'))
+    <div class="alert alert-success">
+        {{ session()->get('error') }}
+    </div>
+@endif
             <div class="row">
                 <div class="col-8">
                     <img src="{{ asset('cover/' . 'form2.svg') }}" alt="" class="img-fluid card-img-top shadow-lg mt-5"
@@ -84,15 +89,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-                                <!-- Email Address -->
-                                <div class="mt-1">
-                                    <x-input-label for="email" :value="__('Email')" />
-                                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
-                                        :value="old('email')" required />
-                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                                </div>
                                 <!-- address -->
                                 <div class="mt-1">
                                     <x-input-label for="address" :value="__('Address')" />
@@ -100,25 +96,32 @@
                                         :value="old('address')" required autofocus />
                                     <x-input-error :messages="$errors->get('address')" class="mt-2" />
                                 </div>
-                                <!-- Password -->
-                                <div class="mt-1">
-                                    <x-input-label for="password" :value="__('Password')" />
+                                <div class="row">
+                                    <!-- Password -->
+                                        <div class="col mt-1">
+                                            <x-input-label for="password" :value="__('Password')" />
 
-                                    <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
-                                        required autocomplete="new-password" />
+                                            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
+                                                required autocomplete="new-password" />
 
-                                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                        </div>
+
+                                        <!-- Confirm Password -->
+                                        <div class="col mt-1">
+                                            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+
+                                            <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                                                name="password_confirmation" required />
+
+                                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                        </div>
                                 </div>
-
-                                <!-- Confirm Password -->
-                                <div class="mt-1">
-                                    <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                                    <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                                        name="password_confirmation" required />
-
-                                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                                </div>
+                                {{-- --Captur code--- --}}
+                                <div class="captcha_div mt-1">
+                                    <div class="g-recaptcha" data-sitekey="{{ env('SITE_KEY') }}"></div>
+                                    <input type="hidden" class="hiddenRecaptcha" name="hiddenRecaptcha" id="hiddenRecaptcha">
+                                </div>
 
                                 <div class="flex items-center justify-end mt-1">
                                     <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -138,4 +141,5 @@
             </div>
         </div>
     </div>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 @endsection

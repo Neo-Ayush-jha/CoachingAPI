@@ -115,17 +115,15 @@ class CourseDetailsController extends Controller
             return view("admin.insert_course_item",$data);
         }
         public function store2(Request $req){
-            if($req->method()=='Post'){
-                $data=$req->validate([
-                    'title'=>'required',
-                    'course_id'=>'required',
-                ]);
+           
                 $data=new course_details();
                 $data->title=$req->title;
                 $data->parent_id=$req->parent_id;
                 $data->course_id=$req->course_id;
+                // dd($data);
                 $data->save();
                 return redirect()->back();
-            }
+                // return redirect()->route("course");
+            // }
         }
     }

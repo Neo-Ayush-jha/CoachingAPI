@@ -17,7 +17,7 @@
                                     <div class="col-9">
                                         <h1 class="display-6 fs-1 fw-bold">{{ $courses->title }}</h1>
                                         <div class="d-flex mt-4">
-                                            <p class="h6 "><strong>Course Fee: </strong> ₹ {{ $courses->fee }}</p>
+                                            <p class="h6 "><strong>Course Fee: </strong><del> ₹ {{$courses->discount_fee}}</del> ₹ {{ $courses->fee }}</p>
                                             <p class="h6 ms-3"><strong>Duration : </strong>{{ $courses->duration }} months</p>
                                             <p class="h6 ms-3"><strong>Instructor : </strong>{{ $courses->instructor }}</p>
                                             {{-- <p class=" ms-3"><strong>Description : </strong>{{ $courses->description }}</p> --}}

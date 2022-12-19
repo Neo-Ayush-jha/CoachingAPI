@@ -6,12 +6,13 @@ use Carbon\Carbon;
 use Razorpay\Api\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\{User,Course,Order,Payment,course_details,OrderItem,Paymentt};
+use App\Models\{User,Course,Order,Payment,course_details,OrderItem,Paymentt,Placement};
 
 class HomeController extends Controller
 {
     public function index(){
-        $data['courses']=Course::all();
+        $data['courses']=Course::paginate(6);
+        $data['placement'] = Placement::paginate(5);
         $data['course_details']=course_details::all();
         return view("homepages/home",$data);
         // return view("homepages/home");
@@ -85,21 +86,38 @@ class HomeController extends Controller
     {
         //
     }
-
+//------------------------------------------------ add course----------------------------------> 
+public function addCourse2(Request $req,$id){
+    $data=Course::find($id);
+    $user = Auth::user();
+    // dd($user);
+    // $course = $req->course_id;
+    // $user = $req->user_id;
+    $sc = new Order();
+    $sc->course_id = $data->id;
+    $sc->user_id = $user->id;
+    // dd($sc);
+    $sc->save();
+    return redirect()->route("homepage");
+        // return redirect()->back();
+}
 //-----------------------------------------------Payment Method--------------------------------->
 public function index2()
 {    
-    $data['courses']=Courses::all();
+    $data['courses']=Course::all();
+    $data['orders']=Order::where([["user_id",Auth::id()]])->first();
     return view('homepages/onlinePayment',$data);
 }
 
 public function onlinePayment(Request $req){
     $contact=$req->contact;
     if($req->has('contact')):
-        $payment['userDetail'] = User::where("contact",$contact)->with('course')->first();
+        $user = User::where('contact', $contact)->first();
+        $payment['userDetails'] = Order::where("user_id",$user->id)->with('course','user')->get();
         return view("homepages/onlinePayment",$payment);
     else:
-        return view("homepages/onlinePayment");
+        $payment['userDetails'] = Order::where("user_id",Auth::user()->id)->with('course','user')->get();
+        return view('homepages/onlinePayment',$payment);
     endif;
 }
 
@@ -129,24 +147,25 @@ public function onlinePayment(Request $req){
         $payment = $api->payment->fetch($input['razorpay_payment_id']);
         if(count($input)  && !empty($input['razorpay_payment_id'])) {
             try {
-                $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment->amount )); 
-// ---------------------------------------------------data add in database---------------------- 
+                $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment->amount));
                 if($payment){
-                    //Transaction Successful
-                    $data=Course::find($id);
-                    // dd($get_course);
-                    $pay=Paymentt::where([['status',false],['course_id',$data->id],["user_id",Auth::id()]])->first();
-                    // $pay = Paymentt::where("course_id",get_course()->id)->first();
-                    $pay->txn_id = $response['id'];
-                    $pay->bank_name = $response['wallet'];
-                    $pay->mode = $response["method"];
-                    $pay->dateofpayment = $response["14/12/2022"];
-                    $pay->status = 1;
+                    $pay= new Paymentt;
+                    $pay->user_id = $request->user_id;
+                    $pay->course_id = $request->course_id;
+                    $pay->amount = $response['amount'];
+                    $pay->status = $response['status'];
+                    $pay->payment_contact_number = $response['contact'];
+                    // $pay->entity = $response['payment'];
+                    $pay->bank_name = $response['bank'];
+                    $pay->mode = $input['razorpay_payment_id'];
+                    $pay->wallet = $response['wallet'];
+                    $pay->txn_id = $response['tax'];
+                    $pay->fee = $response['fee'];
+                    $pay->dateofpayment = Carbon::now();
+                    $pay->payment_status = 1;
                     $pay->save();
+                    return redirect()->back()->with('success', 'Payment had been done succesfully');
                 }
-// ---------------------------------------------------data add in database---------------------- 
-                dd($response);
-                //   return redirect()->back();
             } catch (Exception $e) {
                 return  $e->getMessage();
                 Session::put('error',$e->getMessage());
@@ -157,22 +176,5 @@ public function onlinePayment(Request $req){
 
         
         return redirect()->back();
-    }
-
-
-//------------------------------------------------ add course----------------------------------> 
-    public function addCourse2(Request $req,$id){
-        $data=Course::find($id);
-        $user = Auth::user();
-        // dd($user);
-        // $course = $req->course_id;
-        // $user = $req->user_id;
-        $sc = new Order();
-        $sc->course_id = $data->id;
-        $sc->user_id = $user->id;
-        // dd($sc);
-        $sc->save();
-        return redirect()->route("homepage");
-            // return redirect()->back();
     }
 }

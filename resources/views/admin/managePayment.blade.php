@@ -6,8 +6,8 @@
         </div>
         <div class="col-4">
             <div class="btn-group">
-                <a href="{{route('admin.manage.payment.paid')}}" class="btn btn-success">Paid</a>
-                <a href="{{route('admin.manage.payment.due')}}" class="btn btn-danger">Due</a>
+                <a href="" class="btn btn-success">Paid</a>
+                <a href="" class="btn btn-danger">Due</a>
             </div>
         </div>
     </div>
@@ -18,19 +18,25 @@
                 <tr>
                     <th>id</th>
                     <th>Name</th>
+                    <th>Course</th>
                     <th>Amount</th>
+                    <th>Payment Contact Number</th>
+                    <th>Pay through</th>
                     <th>Due Date</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
-                @foreach ($payment as $due)
+                @foreach ($due_payment as $due)
                     <tr>
                         <td>{{$due->id}}</td>
                         <td>{{$due->user->name}}</td>
+                        <td>{{$due->course->title}}</td>
                         <td>{{$due->amount}}</td>
-                        <td>{{$due->due_date}}</td>
+                        <td>{{$due->payment_contact_number}}</td>
+                        <td>{{$due->wallet}}</td>
+                        <td>{{$due->dateOfPayment}}</td>
                         <td><span class="badge bg-danger rounded-pill">{{$due->status}}</span></td>
-                        <td><a href="{{route('admin.make.cashpayment',['std_id'=>$due->student_id,'id'=>$due->id])}}" class="btn btn-success @if($due->status=='paid') disabled @endif">Pay</a></td>
+                        <td><a href="" class="btn btn-success">Pay</a></td>
                     </tr>
                 @endforeach
             </table>

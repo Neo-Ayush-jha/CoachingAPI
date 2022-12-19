@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{ProfileController,HomeController,AdminController,CourseController,CourseDetailsController};
+use App\Http\Controllers\{ProfileController,HomeController,AdminController,CourseController,PlacementController,CourseDetailsController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -38,25 +38,26 @@ Route::post('payment', [HomeController::class, 'store2']);
 // Route::prefix("admin")->middleware(['auth'])->group(function(){
 Route::prefix("admin")->group(function(){
     Route::get("/",[AdminController::class,"dashboard"])->name("admin.dashboard");
+    Route::get("/manage-payment",[AdminController::class,"payment"])->name("admin.payment");
     Route::get("/approve-student/{id}", [AdminController::class,'approveStudent'])->name("admin.approve.student");
 
     Route::get("/passout-student/{id}", [AdminController::class,'deleteStudent'])->name("admin.passout.student");
 
     Route::get("/make-cash-payment/{std_id}/{id}", [AdminController::class,'makeCashPayment'])->name("admin.make.cashpayment");
 
-    Route::get("/manage/payment/due", [AdminController::class,'managePayment'])->name("admin.manage.payment.due");
+    // Route::get("/manage/payment/due", [AdminController::class,'managePayment'])->name("admin.manage.payment.due");
 
-    Route::get("/manage/payment/paid", [AdminController::class,'managePayment'])->name("admin.manage.payment.paid");
+    // Route::get("/manage/payment/paid", [AdminController::class,'managePayment'])->name("admin.manage.payment.paid");
 
     Route::get("/manage/student",[HomeController::class,"indexStudent"])->name("admin.manage.student.active");
 
     Route::get("/manage/student/new",[HomeController::class,"newAdmission"])->name("admin.manage.student.new");
-    
+    Route::resource('placement', PlacementController::class);
     Route::get("/manage/student/passout",[HomeController::class,"passOut"])->name("admin.manage.student.passout");
     Route::get("/course/insert",[CourseController::class,"create2"])->name("course.insert_course");
     Route::resource('course', CourseController::class); 
-    Route::get('courseDetail', [CourseDetailsController::class,'create2'])->name('courseDetail.insert'); 
-    Route::post('courseDetail',[ CourseDetailsController::class,'store2'])->name('courseDetail.store'); 
+    Route::get('/courseDetail', [CourseDetailsController::class,'create2'])->name('courseDetail.insert'); 
+    Route::post('/courseDetail',[ CourseDetailsController::class,'store2'])->name('courseDetail.store'); 
     // Route::post("/course/addCourse/{id}",[HomeController::class,"addCourse2"])->middleware(['auth'])->name("course.addCourse");
 });
 Route::get("/view-course/{id}",[CourseController::class,"addCourse"])->name("addCourse");

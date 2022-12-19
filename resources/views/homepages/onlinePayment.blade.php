@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        @if (isset($userDetail))
+        @if (isset($userDetails))
             <div class="row">
                 <div class="col-lg-12">
                     <table class="table">
@@ -24,30 +24,38 @@
                             <th>Amount</th>
                             <th>Status</th>
                         </tr>
-                        {{-- @foreach ($userDetail as $pay) --}}
+                        @php
+                            $i =1;
+                        @endphp
+                            @foreach ($userDetails as $userDetail)
                             <tr>
-                                <td>{{ $userDetail->id }}</td>
-                                <td>{{ $userDetail->name }}</td>
+                                <td>{{ $i }}</td>
+                                <td>{{ $userDetail->user->name }}</td>
                                 <td>{{ $userDetail->created_at }}</td>
                                 <td>{{ $userDetail->course->fee }}</td>
                                 <td>
                                     <form action="{{ route('callback') }}" method="POST" >
                                         @csrf
+                                        <input type="hidden" name="course_id" value="{{ $userDetail->course->id }}">
+                                        <input type="hidden" name="user_id" value="{{ $userDetail->user->id }}">
                                         <script src="https://checkout.razorpay.com/v1/checkout.js"
                                         data-key="rzp_test_JcTEYdlpexwZV0"
                                         data-amount="{{ $userDetail->course->fee*100 }}" 
                                         data-currency="INR"
                                         data-buttontext="Pay {{ $userDetail->course->fee }} INR"
-                                        data-name="{{ $userDetail->name }}"
+                                        data-name="{{ $userDetail->user->name }}"
                                         data-description="Rozerpay"
                                         data-image="https://boomi.com/wp-content/uploads/cws-logo.png"
                                         data-prefill.name="name"
-                                        data-prefill.email="{{ $userDetail->email }}"
+                                        data-prefill.email="{{ $userDetail->user->email }}"
                                         data-theme.color="red"></script>
                                     </form>
                                 </td>
                             </tr>
-                        {{-- @endforeach --}}
+                            @php
+                                $i++;
+                            @endphp
+                            @endforeach
                     </table>
                 </div>
             </div>        

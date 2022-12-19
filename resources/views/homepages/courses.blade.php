@@ -22,12 +22,12 @@
                                         <h1 class="display-6 fs-1 fw-bold">{{ $item->title }}</h1>
                                         <p class="text-justify mt-4">{{substr($item->description,0,300)}}...</p>
                                         <div class="d-flex mt-3 mx-auto">
-                                            <p class="fs-3 "><strong>Course Fee: </strong> ₹ {{ $item->fee }}</p>
-                                            <p class="fs-3 ms-3"><strong>Duration : </strong>{{ $item->duration }} months</p>
-                                            <p class="fs-3 ms-3"><strong>Instructor : </strong>{{ $item->instructor }}</p>
+                                            <p class="fs-3 "><strong>Course Fee: </strong><del> ₹ {{$item->discount_fee}}</del> ₹ {{ $item->fee }}</p>
+                                            <p class="fs-3 ms-2"><strong>Duration : </strong>{{ $item->duration }} months</p>
+                                            <p class="fs-3 ms-2"><strong>Instructor : </strong>{{ $item->instructor }}</p>
                                             {{-- <p class="h6 ms-3"><strong>Category : </strong>{{ $item->description }}</p> --}}
                                         </div>
-                                        <div class="row mt-5 mx-auto">
+                                        <div class="row mt-4 mx-auto">
                                                         {{-- <a href="{{route("addCourse",['id'=>$item->id])}}" class="btn btn-danger btn-sm p-0"><i class="bi bi-trash"></i></a> --}}
                                                         <div class="col-5 mx-auto">
                                                             <div class="row text-center">
@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                         
-                                    <div class="col-3 mt-5">
+                                    <div class="col-3 mt-3">
                                         <img src="{{ asset('cover/' . $item->cover) }}" alt="" class="card-img-top shadow-lg " style="border-radius: 1.5rem">
                                     </div>
                                 </div>

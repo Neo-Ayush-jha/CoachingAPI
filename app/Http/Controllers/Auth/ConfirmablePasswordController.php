@@ -28,6 +28,19 @@ class ConfirmablePasswordController extends Controller
      */
     public function store(Request $request)
     {
+        if(isset($request['g-recaptcha-response']) && ($request['g-recaptcha-response'] !== null)) {
+        $secret = env('SECRET_KEY');
+        $response = $request['g-recaptcha-response'];
+        $verifyResponse = \file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$response);
+        $decodedResponse = \json_decode($verifyResponse);
+
+        if(!$decodedResponse->success) {
+            return back()->withInput()->with('error', 'Invalid Captcha');
+        }
+    }
+    else {
+        return back()->withInput()->with('error', 'Please fill captcha');
+    }
         if (! Auth::guard('web')->validate([
             'email' => $request->user()->email,
             'password' => $request->password,
