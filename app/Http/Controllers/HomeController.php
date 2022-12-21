@@ -23,10 +23,7 @@ class HomeController extends Controller
         // $data['course_details']=course_details::all();
         return view("homepages/courses" , $data);   
     }
-    public function create()
-    {
-        //
-    }
+   
     public function apply(Request $req){
         // dd($request->image); die;
         if($req->method() == "POST"){
@@ -174,7 +171,14 @@ public function onlinePayment(Request $req){
         }          
         Session::put('success', 'Payment successful');
 
-        
         return redirect()->back();
+    }
+
+    public function sincleuser(){
+        $data['userDetal'] = Order::where("user_id",Auth::user()->id)->with('course','user')->get();
+        // dd('hello');
+        $data['user'] = Auth::user();
+        // $data['userDetal'] = Course::get();
+        return view("homepages/SincleUser",$data);
     }
 }

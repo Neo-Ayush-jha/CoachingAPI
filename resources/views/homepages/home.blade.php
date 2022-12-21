@@ -12,15 +12,16 @@
         class="container-fluid text-white py-5"style="background: linear-gradient(to right, rgba(32, 40, 119, 1), rgba(55, 46, 149, 1), rgba(83, 49, 177, 1), rgba(114, 48, 205, 1), rgba(150, 41, 230, 1)) !important">
         <div class="container py-1 ">
             <div class="row">
-                <div class="col-9">
-                    <h5 class="display-6 text-light" style="font-size:75px;font-family:Nunito;">Skill Hai! To Future Hai!
+                <div class="col-lg-9 col-sm-3">
+                    <h5 class="display-6 text-light" style="font-size:75px;font-family:Nunito;text-shadow:2.5px 2.5px rgb(170, 54, 54)">Skill Hai! To Future Hai!
                     </h5>
-                    <p class="lead text-light mt-3 fs-4">"CWS is an on-demand marketplace for top Programming engineers,
+                    <p class="lead text-light mt-3 fs-4" style="font-family: Handlee, cursive;">"CWS is an on-demand marketplace for top Programming engineers,
                         developers, consultants, architects, programmers, and tutors. Get your projects built by vetted web
                         programming freelancers or learn from expert mentors with team training & coaching experiences in
                         Project based training."</p>
+                        <p class="display-7 font-weight-bold text-white text-end me-5 fs-4 " style="text-shadow:2.5px 2.5px rgb(170, 54, 54)">~ SadiQ Hussan ~</p>
                 </div>
-                <div class="col-3"><img src="{{ asset('cover/' . 'home.svg') }}" alt=""
+                <div class="col-lg-3 col-sm-6"><img src="{{ asset('cover/' . 'home.svg') }}" alt=""
                         class="img-fluid card-img-top shadow-lg mt-2" style="border-radius: 1.5rem;height:auto">
                 </div>
             </div>
@@ -28,7 +29,7 @@
     </div>
     <div class="container mt-5">
         <div class="row">
-            <div class="col-3">
+            <div class="col-lg-3 col-sm-5">
                 <div class="card shadow border-0">
                     <div class="card-body ">
                         <h3 class="ps-2"style="border-left:6px solid #32393f">Our Courses </h3>
@@ -57,7 +58,7 @@
     </div>
     <div class="container mt-5">
         <div class="row">
-            <div class="col-3">
+            <div class="col-lg-3 col-sm-5">
                 <div class="card shadow border-0">
                     <div class="card-body ">
                         <h3 class="ps-2"style="border-left:6px solid #32393f">Our Placements </h3>

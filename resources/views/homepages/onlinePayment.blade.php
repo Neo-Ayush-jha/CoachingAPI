@@ -34,7 +34,7 @@
                                 <td>{{ $userDetail->created_at }}</td>
                                 <td>{{ $userDetail->course->fee }}</td>
                                 <td>
-                                    <form action="{{ route('callback') }}" method="POST" >
+                                    <form action="{{ route('callback') }}" class="class="btn btn-success bg-success @if($userDetail->status=='paid') disabled @endif" method="POST" >
                                         @csrf
                                         <input type="hidden" name="course_id" value="{{ $userDetail->course->id }}">
                                         <input type="hidden" name="user_id" value="{{ $userDetail->user->id }}">

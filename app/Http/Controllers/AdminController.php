@@ -36,5 +36,14 @@ class AdminController extends Controller
         $data['due_payment']=Paymentt::where("payment_status","1")->get();
         return view("admin/managePayment",$data);
     }
-
+    static  public function makeCashPayment($std_id,$id){
+        
+        $std = User::find($std_id);
+        if($std){
+            $payment = Payment::where([["user_id",$std->id],["id",$id]])->first();
+            $payment->status="1";
+            $payment->save();
+        }
+        return redirect()->route("admin.dashboard");
+    }
 }

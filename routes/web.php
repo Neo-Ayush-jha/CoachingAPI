@@ -22,9 +22,12 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/' ,[HomeController::class,"index"])->name("homepage");
-// Route::get('/contact' ,[HomeController::class,"contact"])->name("contact");
+Route::get('/my_profile' ,[HomeController::class,"sincleuser"]);
 Route::match(['get','post'],'/apply' ,[HomeController::class,"apply"])->name("apply");
 Route::get('/courses' ,[HomeController::class,"courses"])->name("courses");
+
+// ------
+// Route::get('/my_profile' ,[HomeController::class,"sincleuser"]);
 
 Route::match(["get","post"],'/online-payment' ,[HomeController::class,"onlinePayment"])->name("onlinePayment");
 Route::post("/online-payment/make-payment",[HomeController::class,"makePayment"])->name("makePayment");
@@ -35,8 +38,8 @@ Route::post('payment', [HomeController::class, 'store2']);
 
 
 
-// Route::prefix("admin")->middleware(['auth'])->group(function(){
-Route::prefix("admin")->group(function(){
+Route::prefix("admin")->middleware("auth")->group(function(){
+// Route::prefix("admin")->group(function(){
     Route::get("/",[AdminController::class,"dashboard"])->name("admin.dashboard");
     Route::get("/manage-payment",[AdminController::class,"payment"])->name("admin.payment");
     Route::get("/approve-student/{id}", [AdminController::class,'approveStudent'])->name("admin.approve.student");

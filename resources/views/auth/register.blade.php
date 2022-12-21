@@ -8,11 +8,11 @@
     </div>
 @endif
             <div class="row">
-                <div class="col-8">
+                <div class="col-lg-8 col-sm-0">
                     <img src="{{ asset('cover/' . 'form2.svg') }}" alt="" class="img-fluid card-img-top shadow-lg mt-5"
                         style="border-radius: 1.5rem;height:500px">
                 </div>
-                <div class="col-4 ">
+                <div class="col-lg-4 col-sm-8 mx-auto ">
                     <x-guest-layout>
                         <x-auth-card>
                             <x-slot name="logo">

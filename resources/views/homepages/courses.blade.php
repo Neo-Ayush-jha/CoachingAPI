@@ -3,7 +3,7 @@
    <div class="content">
        <div class="container mt-5 mb-5">
            <div class="row">
-            <div class="col-3">
+            <div class="col-lg-3 col-sm-5">
                 <div class="card shadow border-0">
                     <div class="card-body ">
                             <div class="d-inline-flex">

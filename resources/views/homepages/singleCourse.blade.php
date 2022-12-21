@@ -33,11 +33,10 @@
                                                         <th>Course name</th>
                                                         <th>Status</th>
                                                     </tr>
-                                                    @foreach ($courseDetails as $pay)
+                                                    @foreach ($courseDetails as $key=>$pay)
                                                         @if ($courses->id == $pay->course_id )
                                                             <tr>
-
-                                                                <td>{{ $pay->id }}</td>
+                                                                <td>{{ $key+1 }}</td>
                                                                 <td>{{ $pay->title }}</td>
                                                                 <td>
                                                                     @if ($pay->parent_id != 0)
