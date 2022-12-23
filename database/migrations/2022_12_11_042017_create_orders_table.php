@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained();
             $table->boolean('ordered')->default(0);
+            $table->integer('no_of_time')->default(1);
             $table->foreignId("course_id")->constrained();
             $table->enum("status",["paid","due"])->default("due");
             $table->timestamps();

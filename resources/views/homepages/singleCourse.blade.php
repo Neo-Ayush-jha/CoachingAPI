@@ -3,10 +3,12 @@
    <div class="content">
        <div class="container mt-5 mb-5">
            <div class="row">
-            <div class="col-3">
-                    <div class="d-inline-flex">
-                        <h5 class="border-0 border-primary h2 border-3 border-bottom px-2" style="border-radius: 5px">Our Courses</h5>
+            <div class="col-lg-3 col-sm-5">
+                <div class="card shadow border-0">
+                    <div class="card-body ">
+                        <h3 class="ps-2 h2 px-2 text-dark "style="border-left:6px solid #32393f">Our {{ $courses->title }} Courses</h3>                       
                     </div>
+                </div>
             </div>
                 <div class="row">
                     <div class="col-12">

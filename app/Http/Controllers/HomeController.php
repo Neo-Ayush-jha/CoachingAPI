@@ -87,16 +87,21 @@ class HomeController extends Controller
 public function addCourse2(Request $req,$id){
     $data=Course::find($id);
     $user = Auth::user();
-    // dd($user);
-    // $course = $req->course_id;
-    // $user = $req->user_id;
-    $sc = new Order();
-    $sc->course_id = $data->id;
-    $sc->user_id = $user->id;
-    // dd($sc);
-    $sc->save();
-    return redirect()->route("homepage");
-        // return redirect()->back();
+    $check_exists= Order::where([['user_id', $user->id],['course_id', $id]])->exists();
+    if($check_exists) {
+        $get_id= Order::where([['user_id', $user->id],['course_id', $id]])->first();
+        $get_number_of_time_old = $get_id->no_of_time;
+        $sc = Order::find($get_id->id);
+        $sc->no_of_time = $get_number_of_time_old + 1;
+        $sc->save();
+        return redirect()->route("homepage");
+    } else {
+        $sc = new Order();
+        $sc->course_id = $data->id;
+        $sc->user_id = $user->id;
+        $sc->save();
+        return redirect()->route("homepage");
+    }
 }
 //-----------------------------------------------Payment Method--------------------------------->
 public function index2()
@@ -113,8 +118,13 @@ public function onlinePayment(Request $req){
         $payment['userDetails'] = Order::where("user_id",$user->id)->with('course','user')->get();
         return view("homepages/onlinePayment",$payment);
     else:
+       if(Auth::check()) {
         $payment['userDetails'] = Order::where("user_id",Auth::user()->id)->with('course','user')->get();
         return view('homepages/onlinePayment',$payment);
+       }
+       else {
+        return view('homepages/onlinePayment');
+       }
     endif;
 }
 
@@ -161,6 +171,9 @@ public function onlinePayment(Request $req){
                     $pay->dateofpayment = Carbon::now();
                     $pay->payment_status = 1;
                     $pay->save();
+                    $sc = Order::find($request->order_id);
+                    $sc->status = 'paid';
+                    $sc->save();
                     return redirect()->back()->with('success', 'Payment had been done succesfully');
                 }
             } catch (Exception $e) {
@@ -170,7 +183,6 @@ public function onlinePayment(Request $req){
             }
         }          
         Session::put('success', 'Payment successful');
-
         return redirect()->back();
     }
 

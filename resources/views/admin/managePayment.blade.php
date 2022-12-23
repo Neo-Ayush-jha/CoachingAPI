@@ -35,10 +35,14 @@
                         <td>{{$due->payment_contact_number}}</td>
                         <td>{{$due->wallet}}</td>
                         <td>{{$due->dateOfPayment}}</td>
-                        {{-- <td><span class="badge bg-danger rounded-pill">{{$due->status}}</span></td> --}}
                         <td><span class="badge bg-danger rounded-pill">{{$due->status}}</span></td>
-                        <td><a href="" class="btn btn-success @if($due->status=='paid') disabled @endif">Pay</a></td>                   
-                        {{-- <td><a href="{{route('admin.make.cashpayment',['user_id'=>$due->std_id,'id'=>$due->id])}}" class="btn btn-success @if($due->status=='paid') disabled @endif">Pay</a></td>                    --}}
+                        @if ($due->status == 'paid')
+                        <td>
+                            <span class="badge badge-success">Paid</span>
+                        </td>
+                        @else
+                        <td><a href="" class="btn btn-success ">Pay</a></td>                   
+                        @endif
                      </tr>
                 @endforeach
             </table>

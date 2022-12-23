@@ -2,11 +2,11 @@
 @section('ayush')
     <div class="container-fluid mt-5 ">
         <div class="row">
-            <div class="col-lg-4 sm-8 mx-auto">
+            <div class="col-lg-4 col-sm-8 mx-auto">
                 <div class="card border shadow">
                     <div class="card-body p-0">
                         <table class="table ">
-                            <tr class="bg-primary text-white text-center mt-3"><th colspan="4">PERSONAL DETAILS</th>
+                            <tr class="bg-primary text-white text-center mt-3"><th colspan="4">STUDENT DETAILS</th>
                         </tr>
                             <tr>
                                 <th colspan="2">NAME</th>
@@ -32,7 +32,8 @@
                     </div>
                 </div>
             </div>
-                <div class="col-lg-8 col-sm-8  sm-mt-3 mx-auto">
+            <div class="col-lg-8 col-sm-8 mt-3 mx-auto">
+                    <h5 class="bg-primary text-white text-center py-2 ">STUDENT COURSE DETAILS</h5>
                     <table class="table border bottom-2 border-dark">
                         <tr>
                             <th >Course table name</th> 
@@ -45,9 +46,9 @@
                         <tr>
                             <td >{{$item->course->title}}</td>
                             <td >{{$item->course->duration}} months</td>
-                            <td >{{$item->course->fee}}</td>
+                            <td >{{$item->course->fee *  $item->no_of_time}}</td>
                             <td ><a href="{{route("addCourse",['id'=>$item->id])}} " class="btn btn-warning "><i class="bi bi-eye"></i>View detales</a></td>
-                            <td ><a href="{{route("course.addCourse",['id'=>$item->id])}}  " class="btn btn-success  "><i class="bi bi-check"></i>Pay</a></td>
+                            <td ><a href="{{route('onlinePayment')}}  " class="btn btn-success  "><i class="bi bi-check"></i>Pay</a></td>
                         </tr>
                         @endforeach
                     </table>

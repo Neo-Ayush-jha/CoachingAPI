@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{ProfileController,HomeController,AdminController,CourseController,PlacementController,CourseDetailsController};
+use App\Http\Controllers\{ProfileController,HomeController,AdminController,CourseController,PlacementController,CourseDetailsController,TeController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -65,3 +65,5 @@ Route::prefix("admin")->middleware("auth")->group(function(){
 });
 Route::get("/view-course/{id}",[CourseController::class,"addCourse"])->name("addCourse");
 Route::match(["get","post"], "/course/addCourse/{id}",[HomeController::class,"addCourse2"])->middleware(['auth'])->name("course.addCourse");
+
+Route::get('/check', [TeController::class, 'index']);
